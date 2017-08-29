@@ -1,0 +1,15 @@
+      SUBROUTINE GETERR
+      IMPLICIT DOUBLE PRECISION (A-H, O-Z)
+      COMMON /GET_RERR/ RELERR,ABSERR 
+!$OMP threadprivate(/GET_RERR/)
+      DA1=1
+      DAH=0.5D0
+      U=DA1
+1     CONTINUE
+      U=U*DAH
+      TEMP=DA1-U
+      IF(TEMP.LT.DA1) GO TO 1
+      RELERR=U*4
+      IF(ABSERR.LE.A0) ABSERR=U*200
+      RETURN
+      END
